@@ -28,7 +28,7 @@ const App = () => {
       imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
     },
   ];
-  // const categories = CategoriesList();
+
   return <Directory categories={categories} />;
 };
 
