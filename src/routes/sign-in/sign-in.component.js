@@ -8,15 +8,23 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
+import SignUpForm from "../../components/sign-up-form/sign-up.component";
+
 const SignIn = () => {
-  useEffect(async () => {
-    try {
-      const response = await getRedirectResult(auth);
-      console.log(response);
-    } catch (error) {
-      console.error("Error in getRedirectResult:", error);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const handleRedirect = async () => {
+  //     try {
+  //       const response = await getRedirectResult(auth);
+  //       if (response) {
+  //         const userDocRef = await createUserDocumentFromAuth(response.user);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error in getRedirectResult:", error);
+  //     }
+  //   };
+
+  //   handleRedirect(); // Call the function to execute it
+  // }, []); // Empty dependency array to run the effect only once
 
   const logGoogleUser = async () => {
     //deconstructing user from the response
@@ -25,19 +33,15 @@ const SignIn = () => {
     const userDocRef = await createUserDocumentFromAuth(user);
   };
 
-  // const logGoogleRedirectUser = async () => {
-  //   const { user } = await signInWithGoogleRedirect();
-  //   console.log({ user });
-  // };
-
   return (
     <div>
       <div>
         <h1>I am the Sign In page</h1>
         <button onClick={logGoogleUser}>Sign In With Google Popup</button>
-        <button onClick={signInWithGoogleRedirect}>
+        <SignUpForm />
+        {/* <button onClick={signInWithGoogleRedirect}>
           Sign In With Google Redirect
-        </button>
+        </button> */}
       </div>
     </div>
   );
