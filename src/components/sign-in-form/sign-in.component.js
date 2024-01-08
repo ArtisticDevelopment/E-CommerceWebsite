@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   createUserDocumentFromAuth,
   signInWithGooglePopup,
@@ -9,6 +9,8 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import "./sign-in.styles.scss";
 
+import { UserContext } from "../../context/user.context";
+
 const defaultFormFields = {
   email: "",
   password: "",
@@ -18,11 +20,13 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  //setting up User Context
+  // const { setCurrentUser } = useContext(UserContext);
+
   const SignInWithGoogle = async () => {
     //deconstructing user from the response
     //from signInWithGooglePopup
-    const { user } = await signInWithGooglePopup();
-    const userDocRef = await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   //on submit
@@ -37,11 +41,22 @@ const SignInForm = () => {
     //on submit, try to create Firebase auth with email and password
     //error catching for user friendly UI
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+
+      //stopped using signOutHandler to prevent rerendering of three
+      //components (nav, sign-in, sign-up). Now there is the
+      //authStateChangedListener inside user.context that is able to
+      //setCurrentUser locally every time the user/auth value changes from
+      //a full object to null by signing in and out. This helps upkeep
+      //a dynamic UI and optimization
+
+      //function to upload user to Context
+      // setCurrentUser(user);
+
+      console.log(user);
       resetFormFields();
     } catch (error) {
       //error-catch for wrong email or password

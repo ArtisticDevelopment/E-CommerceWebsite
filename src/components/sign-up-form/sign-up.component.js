@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -8,6 +8,9 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import "./sign-up.styles.scss";
 
+// import { UserContext } from "../../context/user.context";
+
+//coulda/shoulda been stored inside SignUpForm but ZTM does this
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -16,11 +19,19 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+  //local state values and functions to change values
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log({ formFields });
+  //function to change context values
+  // const { setCurrentUser } = useContext(UserContext);
 
+  //stopped using signOutHandler to prevent rerendering of three
+  //components (nav, sign-in, sign-up). Now there is the
+  //authStateChangedListener inside user.context that is able to
+  //setCurrentUser locally every time the user/auth value changes from
+  //a full object to null by signing in and out. This helps upkeep
+  //a dynamic UI and optimization
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -39,6 +50,9 @@ const SignUpForm = () => {
         email,
         password
       );
+      //sets current user to context state
+      // setCurrentUser(user);
+
       const userDocRef = await createUserDocumentFromAuth(user, {
         displayName,
       });
