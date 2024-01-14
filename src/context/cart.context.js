@@ -21,11 +21,31 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
+const removeCartItem = (cartItems, productToRemove) => {
+  const existingCartItem = cartItems.find((item) => {
+    return item.id === productToRemove.id;
+  });
+
+  if (existingCartItem) {
+    return cartItems.map((item) => {
+      return item.id === productToRemove.id
+        ? { ...item, quantity: item.quantity - 1 }
+        : { ...item };
+    });
+  }
+};
+
+const clearCartItem = (cartItems, productToClear) => {
+  return cartItems.filter((item) => item.id !== productToClear.id);
+};
+
 export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  removeItemFromCart: () => {},
+  clearItemFromCart: () => {},
   cartCount: 0,
 });
 
@@ -46,13 +66,27 @@ export const CartProvider = ({ children }) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
 
+  const removeItemFromCart = (productToRemove) => {
+    if (productToRemove.quantity === 0) {
+      return;
+    } else {
+      setCartItems(removeCartItem(cartItems, productToRemove));
+    }
+  };
+
+  const clearItemFromCart = (productToClear) => {
+    setCartItems(clearCartItem(cartItems, productToClear));
+  };
+
   //adding  values to object to ship with Provider
   const value = {
     isCartOpen,
     setIsCartOpen,
     cartItems,
     addItemToCart,
+    removeItemFromCart,
     cartCount,
+    clearItemFromCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
