@@ -15,13 +15,16 @@
         img { 
           width: 100%;
            height: 100%; 
-          } } 
+          } 
+        } 
           
           .name, .quantity, .price {
              width: 23%;
              } 
              .quantity { 
               display: flex; 
+
+
                 .arrow {
                  cursor: pointer;
                 } 
