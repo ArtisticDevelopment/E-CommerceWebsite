@@ -2,13 +2,13 @@ import { createContext, useState, useEffect } from "react";
 
 //helper function to addItemToCart
 const addCartItem = (cartItems, productToAdd) => {
-  //search array of cartItems and returns item/object that tests true
+  //search array of cartItems id's and returns truthy object value
   const existingCartItem = cartItems.find((item) => {
     return item.id === productToAdd.id;
   });
 
-  //if existingCartItem exists, create new object item-by-item
-  //until object includes previous items and new item with quantity+1
+  //if existingCartItem DOES EXIST, create new object item-by-item
+  //until object includes PREVIOUS items and NEW item with quantity+1
   if (existingCartItem) {
     //map returns a array
     return cartItems.map((item) => {
@@ -17,7 +17,7 @@ const addCartItem = (cartItems, productToAdd) => {
         : { ...item };
     });
   }
-  //if existingCartItem doesn't exist, return new object with old cartItems then new product added
+  //if existingCartItem DOES NOT exist, return new object with OLD cartItems then NEW product added, simpy quantity 1
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
@@ -35,6 +35,7 @@ const removeCartItem = (cartItems, productToRemove) => {
   }
 };
 
+//returns array choosing only the items that do NOT match the product you are clearing from the cart. If you instead filtered for positive id matches you'd get an array returning your chosen item
 const clearCartItem = (cartItems, productToClear) => {
   return cartItems.filter((item) => item.id !== productToClear.id);
 };
@@ -66,16 +67,18 @@ export const CartProvider = ({ children }) => {
 
   //recalculates cartTotal every time cartItems changes
   useEffect(() => {
-    const newTotal = cartItems.reduce((total, item) => {
-      return total + item.price * item.quantity;
+    const newTotal = cartItems.reduce((total, cartItem) => {
+      return total + cartItem.price * cartItem.quantity;
     }, 0);
     setCartTotal(newTotal);
   }, [cartItems]);
 
+  //uses helper function above(line 4) to add item to cart
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
 
+  //also uses a helper function(line 24) to remove item from cart
   const removeItemFromCart = (productToRemove) => {
     if (productToRemove.quantity === 0) {
       return;
@@ -84,6 +87,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  //helper function (line 38) to clear item from cart
   const clearItemFromCart = (productToClear) => {
     setCartItems(clearCartItem(cartItems, productToClear));
   };

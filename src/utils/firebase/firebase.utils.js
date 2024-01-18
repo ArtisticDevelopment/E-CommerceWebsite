@@ -13,7 +13,16 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -41,8 +50,11 @@ googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-//very important, auth is the memory of logins in firestore
+//very important, auth is the Database memory in firestore
+//that user authentication
 export const auth = getAuth();
+
+export const db = getFirestore();
 
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
@@ -50,7 +62,42 @@ export const signInWithGooglePopup = () =>
 export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
-export const db = getFirestore();
+//async because we're interacting with an external service.
+//taking SHOP_DATA and adding to firestore
+// export const addCollectionAndDocuments = async (
+//   collectionKey,
+//   objectsToAdd
+// ) => {
+//   const collectionRef = collection(db, collectionKey);
+//   const batch = writeBatch(db);
+
+//   objectsToAdd.forEach((object) => {
+//     const docRef = doc(collectionRef, object.title.toLowerCase());
+//     batch.set(docRef, object);
+//   });
+//   await batch.commit();
+//   console.log("done");
+// };
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, "categories");
+
+  //query to grab a snapshot of a collection object(empty or not)
+  const q = query(collectionRef);
+
+  //retrieve array of documents from collection
+  const querySnapshot = await getDocs(q);
+
+  //returns array of internal documents
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapShot) => {
+    //.data() returns data object
+    const { title, items } = docSnapShot.data();
+    acc[title.toLowerCase()] = items;
+    //not sure why acc is returned instead of items but..
+    return acc;
+  }, {});
+  return categoryMap;
+};
 
 export const createUserDocumentFromAuth = async (
   userAuth,
