@@ -93,7 +93,7 @@ export const getCategoriesAndDocuments = async () => {
     //.data() returns data object
     const { title, items } = docSnapShot.data();
     acc[title.toLowerCase()] = items;
-    //not sure why acc is returned instead of items but..
+
     return acc;
   }, {});
   return categoryMap;
