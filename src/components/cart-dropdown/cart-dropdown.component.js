@@ -3,10 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import { CartContext } from "../../context/cart.context";
 
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component.js";
 import CartItem from "../cart-item/cart-item.component";
-
-import "./cart-dropdown.styles.scss";
+import {
+  CartDropdownContainer,
+  EmptyMessage,
+  CartItems,
+  CartItemsEmpty,
+} from "./cart-dropdown.styles.jsx";
 
 const CartDropDown = () => {
   const { cartCount, cartItems, isCartOpen, setIsCartOpen } =
@@ -22,18 +26,25 @@ const CartDropDown = () => {
   };
 
   return (
-    <div className="cart-dropdown-container">
-      <div className="cart-items">
+    <CartDropdownContainer className="cart-dropdown-container">
+      <CartItems className="cart-items">
         {cartCount === 0 ? (
-          <span className="cart-items-emtpy">No Items Added</span>
+          <CartItemsEmpty as="span" className="cart-items-empty">
+            <EmptyMessage>No Items Added</EmptyMessage>
+          </CartItemsEmpty>
         ) : (
           cartItems.map((item) => {
             return <CartItem key={item.id} cartItem={item} />;
           })
         )}
-      </div>
-      <Button onClick={navigateToCheckout}>Checkout</Button>
-    </div>
+      </CartItems>
+      <Button
+        buttonType={BUTTON_TYPE_CLASSES.base}
+        onClick={navigateToCheckout}
+      >
+        Checkout
+      </Button>
+    </CartDropdownContainer>
   );
 };
 

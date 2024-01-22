@@ -5,11 +5,10 @@ import {
 } from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import "./sign-up.styles.scss";
 
 // import { UserContext } from "../../context/user.context";
-
 //coulda/shoulda been stored inside SignUpForm but ZTM does this
 const defaultFormFields = {
   displayName: "",
@@ -112,7 +111,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button buttonType="" type="submit">
+        <Button buttonType={BUTTON_TYPE_CLASSES.base} type="submit">
           Sign Up
         </Button>
       </form>
