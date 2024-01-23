@@ -8,9 +8,7 @@ import {
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
-import "./sign-in.styles.scss";
-
-import { UserContext } from "../../context/user.context";
+import { SignInContainer, ButtonsContainer } from "./sign-in.styles";
 
 const defaultFormFields = {
   email: "",
@@ -82,7 +80,7 @@ const SignInForm = () => {
   return (
     //import to recognize that event.target.name and event.target.value doesn't
     //work unless you put name and value in side the <input> element
-    <div className="sign-in-container">
+    <SignInContainer className="sign-in-container">
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -103,7 +101,7 @@ const SignInForm = () => {
           name="password"
           value={password}
         />
-        <div className="buttons-container">
+        <ButtonsContainer className="buttons-container">
           <Button type="submit" buttonType={BUTTON_TYPE_CLASSES.base}>
             Sign In
           </Button>
@@ -114,9 +112,9 @@ const SignInForm = () => {
           >
             Google Sign In
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 

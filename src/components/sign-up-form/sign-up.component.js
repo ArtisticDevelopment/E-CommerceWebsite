@@ -6,7 +6,8 @@ import {
 
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
-import "./sign-up.styles.scss";
+
+import { SignUpContainer } from "./sign-up.styles";
 
 // import { UserContext } from "../../context/user.context";
 //coulda/shoulda been stored inside SignUpForm but ZTM does this
@@ -72,7 +73,7 @@ const SignUpForm = () => {
   return (
     //import to recognize that event.target.name and event.target.value doesn't
     //work unless you put name and value in side the <input> element
-    <div className="sign-up-container">
+    <SignUpContainer className="sign-up-container">
       <h2>Don't have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -115,7 +116,7 @@ const SignUpForm = () => {
           Sign Up
         </Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

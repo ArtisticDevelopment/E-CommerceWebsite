@@ -1,7 +1,7 @@
 import SignUpForm from "../../components/sign-up-form/sign-up.component";
 import SignInForm from "../../components/sign-in-form/sign-in.component";
 
-import "./authentication.styles.scss";
+import { AuthenticationContainer } from "./authentication.styles";
 
 const Authentication = () => {
   // useEffect(() => {
@@ -27,7 +27,7 @@ const Authentication = () => {
   // };
 
   return (
-    <div className="authentication-container">
+    <AuthenticationContainer className="authentication-container">
       {/* <button onClick={logGoogleUser}>Sign In With Google Popup</button> */}
       <SignInForm />
       <SignUpForm />
@@ -35,7 +35,7 @@ const Authentication = () => {
       {/* <button onClick={signInWithGoogleRedirect}>
           Sign In With Google Redirect
         </button> */}
-    </div>
+    </AuthenticationContainer>
   );
 };
 
