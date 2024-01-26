@@ -78,8 +78,8 @@ const SignInForm = () => {
   };
 
   return (
-    //import to recognize that event.target.name and event.target.value doesn't
-    //work unless you put name and value in side the <input> element
+    //important to recognize that event.target.name and event.target.value doesn't
+    //work unless you put name and value inside the <FormInput> element
     <SignInContainer className="sign-in-container">
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>

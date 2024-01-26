@@ -19,7 +19,7 @@ const DirectoryItem = ({ category }) => {
       className="directory-item-container"
       onClick={onNavigateHandler}
     >
-      <BackgroundImage className="background-image" imageUrl={imageUrl} />
+      <BackgroundImage className="background-image" imageurl={imageUrl} />
 
       <Body className="body">
         <h2>{title}</h2>
