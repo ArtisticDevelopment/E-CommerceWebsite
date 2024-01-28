@@ -1,13 +1,11 @@
-import { Fragment, useContext } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
-
-import { UserContext } from "../../context/user.context";
-import { CartContext } from "../../context/cart.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
-
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropDown from "../../components/cart-dropdown/cart-dropdown.component";
+import { setCurrentUser } from "../../store/user/user.action"; // Import your action
 
 import {
   NavigationContainer,
@@ -17,22 +15,14 @@ import {
 } from "./navigation.styles.jsx";
 
 const Navigation = () => {
-  // Instantiating User from context
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
 
-  // Local signout function to call Firebase signOutUser
-  // const signOutHandler = async () => {
-  //   await signOutUser();
-  //   setCurrentUser(null);
-  // };
+  const signOutHandler = async () => {
+    await signOutUser();
+    dispatch(setCurrentUser(null));
+  };
 
-  // Stopped using signOutHandler to prevent rerendering of three
-  // components (nav, sign-in, sign-up). Now there is the
-  // authStateChangedListener inside user.context that is able to
-  // setCurrentUser locally every time the user/auth value changes from
-  // a full object to null by signing in and out. This helps upkeep
-  // a dynamic UI and optimization
   return (
     <Fragment>
       <NavigationContainer className="navigation">
@@ -44,7 +34,7 @@ const Navigation = () => {
             SHOP
           </NavLink>
           {currentUser ? (
-            <NavLink as="span" className="nav-link" onClick={signOutUser}>
+            <NavLink as="span" className="nav-link" onClick={signOutHandler}>
               SIGN OUT
             </NavLink>
           ) : (
@@ -54,7 +44,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </NavLinks>
-        {isCartOpen && <CartDropDown />}
+        {/* Add your CartDropDown component here */}
       </NavigationContainer>
       <Outlet />
     </Fragment>
