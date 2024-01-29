@@ -19,7 +19,9 @@ const Navigation = () => {
   const dispatch = useDispatch();
 
   const signOutHandler = async () => {
+    //just for firebase
     await signOutUser();
+    //then for Redux
     dispatch(setCurrentUser(null));
   };
 
