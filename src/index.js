@@ -14,11 +14,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <CategoriesProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </CategoriesProvider>
+      <CartProvider>
+        <App />
+      </CartProvider>
     </BrowserRouter>
   </Provider>
 );
