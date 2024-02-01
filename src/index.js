@@ -12,15 +12,13 @@ import { CategoriesProvider } from "./context/categories.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <CategoriesProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
-        </CategoriesProvider>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <CategoriesProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </CategoriesProvider>
+    </BrowserRouter>
+  </Provider>
 );
