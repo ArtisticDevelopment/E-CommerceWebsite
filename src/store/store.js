@@ -17,7 +17,7 @@ const loggerMiddleware = (store) => (next) => (action) => {
   console.log("next state:", store.getState());
 };
 
-const middleWares = [loggerMiddleware];
+const middleWares = [logger];
 
 const composedEnhancers = compose(applyMiddleware(...middleWares));
 

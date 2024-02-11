@@ -40,9 +40,8 @@ const removeCartItem = (cartItems, productToRemove) => {
 const clearCartItem = (cartItems, productToClear) => {
   return cartItems.filter((item) => item.id !== productToClear.id);
 };
-export const setIsCartOpen = (boolean) => {
+export const setIsCartOpen = (boolean) =>
   createAction(CART_ACTION_TYPES.TOGGLE_CART_OPEN, boolean);
-};
 
 //uses helper function above(line 4) to add item to cart
 export const addItemToCart = (cartItems, productToAdd) => {
