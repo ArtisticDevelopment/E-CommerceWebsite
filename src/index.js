@@ -6,17 +6,11 @@ import { store } from "./store/store";
 import "./index.scss";
 import App from "./App";
 
-import { UserProvider } from "./context/user.context";
-import { CartProvider } from "./context/cart.context";
-import { CategoriesProvider } from "./context/categories.context";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <CartProvider>
-        <App />
-      </CartProvider>
+      <App />
     </BrowserRouter>
   </Provider>
 );

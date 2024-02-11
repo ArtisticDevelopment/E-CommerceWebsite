@@ -6,7 +6,6 @@ const INITIAL_STATE = {
 };
 
 export const userReducer = (state = INITIAL_STATE, action) => {
-  console.log("Dispatched");
   console.log(action);
   //type is simply a type while payload is the data/info
   const { type, payload } = action;

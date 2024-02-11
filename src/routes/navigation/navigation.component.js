@@ -5,8 +5,9 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropDown from "../../components/cart-dropdown/cart-dropdown.component";
-import { setCurrentUser } from "../../store/user/user.action"; // Import your action
+import { setCurrentUser } from "../../store/user/user.action";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
+import { selectIsCartOpen } from "../../store/cart/cart.selector.js";
 
 import {
   NavigationContainer,
@@ -17,6 +18,7 @@ import {
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const isCartOpen = useSelector(selectIsCartOpen);
   const dispatch = useDispatch();
 
   const signOutHandler = async () => {
@@ -47,7 +49,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </NavLinks>
-        {/* <CartDropDown /> */}
+        <CartDropDown />
       </NavigationContainer>
       <Outlet />
     </Fragment>
