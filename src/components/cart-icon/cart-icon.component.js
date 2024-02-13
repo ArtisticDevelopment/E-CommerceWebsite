@@ -19,8 +19,8 @@ const CartIcon = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
 
   //sets isCartOpen value to opposite every time cart-icon is clicked
-  const toggleIsCartOpen = () => dispatch(!setIsCartOpen);
 
+  const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen));
   return (
     <CartIconContainer onClick={toggleIsCartOpen}>
       <ShoppingIconSVG />

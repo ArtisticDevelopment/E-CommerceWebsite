@@ -1,7 +1,7 @@
 import { CART_ACTION_TYPES } from "./cart.types";
 import createAction from "../../utils/reducer/reducer.utils";
 
-//helper function to addItemToCart
+//HELPER FUNCTION to addItemToCart
 const addCartItem = (cartItems, productToAdd) => {
   //search array of cartItems id's and returns truthy object value
   const existingCartItem = cartItems.find((item) => {
@@ -40,9 +40,9 @@ const removeCartItem = (cartItems, productToRemove) => {
 const clearCartItem = (cartItems, productToClear) => {
   return cartItems.filter((item) => item.id !== productToClear.id);
 };
-export const setIsCartOpen = (boolean) =>
-  createAction(CART_ACTION_TYPES.TOGGLE_CART_OPEN, boolean);
-
+export const setIsCartOpen = (boolean) => {
+  return createAction(CART_ACTION_TYPES.TOGGLE_CART_OPEN, boolean);
+};
 //uses helper function above(line 4) to add item to cart
 export const addItemToCart = (cartItems, productToAdd) => {
   const newCartItems = addCartItem(cartItems, productToAdd);
@@ -51,16 +51,12 @@ export const addItemToCart = (cartItems, productToAdd) => {
 
 //also uses a helper function(line 24) to remove item from cart
 export const removeItemFromCart = (cartItems, productToRemove) => {
-  if (productToRemove.quantity === 0) {
-    return;
-  } else {
-    const newCartItems = removeCartItem(cartItems, productToRemove);
-    createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
-  }
+  const newCartItems = removeCartItem(cartItems, productToRemove);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
 //helper function (line 39) to clear item from cart
 export const clearItemFromCart = (cartItems, productToClear) => {
   const newCartItems = clearCartItem(cartItems, productToClear);
-  createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };

@@ -15,7 +15,6 @@ import {
   NavLink,
   LogoContainer,
 } from "./navigation.styles.jsx";
-import { setIsCartOpen } from "../../store/cart/cart.action.js";
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -27,10 +26,6 @@ const Navigation = () => {
     await signOutUser();
     //then for Redux
     dispatch(setCurrentUser(null));
-  };
-
-  const handleToggle = () => {
-    dispatch(setIsCartOpen(!isCartOpen));
   };
 
   return (
@@ -52,7 +47,7 @@ const Navigation = () => {
               SIGN IN
             </NavLink>
           )}
-          <CartIcon onClick={handleToggle} />
+          <CartIcon />
         </NavLinks>
         {isCartOpen && <CartDropDown />}
       </NavigationContainer>
